@@ -1,86 +1,168 @@
+@extends('welcomes')
+@section('content')
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js">
+        </script>
+        <script src="http://demo.expertphp.in/js/bootstrap.js"></script>
+<script src="http://demo.expertphp.in/js/validator.js"></script>
+<script type="text/javascript" src="{{asset('public/asset/js/bootstrap-clockpicker.min.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('public/asset/css/bootstrap-clockpicker.min.css')}}">
  <!-- Modal content-->
 
- 
-      <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><img src="{{asset('public/asset/save.png')}}" height="40" width="40">&nbsp </span>Add New Record</h4>
+ <style type="text/css">
+    h1{
+        margin: 30px 0;
+        padding: 0 200px 15px 0;
+        border-bottom: 1px solid #E5E5E5;
+    }
+  .bs-example{
+      margin: 20px;
+    }
+    .inner-addon { 
+    position: relative; 
+}
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+</style>
+<br><br>
+
+
+ <div class="register-box">
+    @if (Session::get('msg') == 'ad')
+    <div class="alert alert-info alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-check"></i> Success</h4>
+    </div>    
+    @elseif (Session::get('msg') == 'fa')
+    <div class="alert alert-warning alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-check"></i> Failed</h4>
+    </div>
+    @endif 
+
+
+<div class="bs-example">
+    <center><h1>Add New Record</h1></center>
+    <form class="form-horizontal" method="POST" id="myform" action="{{ asset('added') }}" accept-charset="UTF-8">
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="file_no">File NO:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="file_no" placeholder="Enter File Number">
+                <span class="form-control-feedback"></span>
+            </div>
         </div>
-        <div class="modal-body" style="padding:40px 50px; background-color:#e5e8e5;">
-          <form action="{{ asset('added') }}" method="post" role="form" id="myform" accept-charset="UTF-8">
-          <input name="_token" type="hidden" value="yb89NDHLmhTPFoduz2HDZdYzL9IzS5nuE5CFIwfj">
-            <div class="form-group">
-              <label for="file_no"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>File No.</label>
-              <input type="text" class="form-control" name="file_no" placeholder="Enter file number" >
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="rb">Received by:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="rb" placeholder="Enter Fullname">
             </div>
-            <div class="form-group">
-              <label for="for"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>For</label>
-              <input type="text" class="form-control" name="for" placeholder="Enter fullname">
+        </div>
+       
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="for">For:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="for" placeholder="Enter Fullname">
             </div>
-            <div class="form-group">
-              <label for="office"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>Office</label>
-              <input type="text" class="form-control" name="office" placeholder="Enter Office">
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="office">Office:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="office" placeholder="Enter Office">
             </div>
-            <div class="form-group">
-              <label for="address"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>Address</label>
-              <input type="text" class="form-control" name="address" placeholder="Enter address">
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="address">Address:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="address" placeholder="Enter Address">
             </div>
-            <div class="form-group">
-              <label for="sub"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>Subject</label>
-              <textarea rows="4" cols="50" type="text" class="form-control" name="sub" placeholder="Enter subject...">
-            </textarea></div>
-            <div class="form-group">
-              <label for="rb"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>Received by</label>
-              <input type="text" class="form-control" name="rb" placeholder="Enter fullname">
+        </div>
+         
+          <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="sub">Subject:</label>
+            <div class="col-xs-9">
+                <textarea rows="3" class="form-control" name="sub" placeholder="Subject"></textarea>
             </div>
-              <div class="form-group">
-              <label for="dr"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>Date Received</label>
-             <input type="text" class="date form-control" name="dr" placeholder="yyyy-mm-dd"></div>
-            <script type="text/javascript">  
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="ctn">Courier Tracking No:</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="ctn" placeholder="Enter Tracking No">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="rep">Representative</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="rep" placeholder="Enter Representative">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label col-xs-3" for="remarks">Remarks:</label>
+            <div class="col-xs-9">
+                <textarea rows="3" class="form-control" name="remarks" placeholder="Remarks"></textarea>
+            </div>
+        </div>
+       <div class="form-group has-feedback">
+            <label class="control-label col-xs-3">Date/Time Received:</label>
+            <div class="col-xs-3">
+               <div class="form-group inner-addon left-addon">
+               <i class="glyphicon glyphicon-calendar"></i>
+                <input type="text" class="date form-control" name="dr" placeholder="Choose Date yyyy-mm-dd">
+            </div>
+        </div> 
+        <script type="text/javascript">  
            $('.date').datepicker({  
            format: 'yyyy-mm-dd'  
            });  
-           </script>  
-             <div class="form-group">
-              <label for="tr"><img src="{{asset('public/asset/eye.png')}}" height="20" width="20">&nbsp</span>Time Received</label> 
-          <input id="setTimeExample" type="text" class="time form-control" name="tr" />
-               <button id="setTimeButton">Set current time</button>
-                    
-    <script>
-                $(function() {
-                    $('#setTimeExample').timepicker();
-                    $('#setTimeButton').on('click', function (){
-                        $('#setTimeExample').timepicker('setTime', new Date());
-                    });
-                });
-            </script>
-            <br><br>
-            </div>
-               <button type="submit"  class="btn btn-success btn-block"><img src="{{asset('public/asset/submit.png')}}" height="20" width="20">&nbsp</span>Save</button>
-          
-        </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><img src="{{asset('public/asset/cancel.png')}}" height="20" width="20">&nbsp</span>Cancel</button>
-          <button type="submit" name="reset" class="btn btn-default pull-right " ><img src="{{asset('public/asset/reset.png')}}" height="20" width="20">&nbsp</span>Reset</button> 
-         
-        </div>
-      </div>
-      
-    </div>
-  </div> 
-</div>
- </div>
- </div>
- 
-<script>
-$(document).ready(function(){
-    $("#myBtn").click(function(){
-        $("#yourModal").modal();
-    });
+           </script>
+            <div class="col-xs-3">
+            <div class="form-group inner-addon left-addon">
+               <i class="glyphicon glyphicon-time"></i>
+            <input class="form-control" id="single-input" name="tr" value="" placeholder="Now">
+<button type="button" id="check-minutes">Check the minutes</button>
+
+<script type="text/javascript">
+var input = $('#single-input').clockpicker({
+    placement: 'bottom',
+    align: 'left',
+    autoclose: true,
+    'default': 'now'
+});
+
+// Manually toggle to the minutes view
+$('#check-minutes').click(function(e){
+    // Have to stop propagation here
+    e.stopPropagation();
+    input.clockpicker('show')
+            .clockpicker('toggleView', 'minutes');
 });
 </script>
+            </div>
+        </div>
+       
+         <div class="form-group">
+            <div class="col-xs-offset-3 col-xs-9">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="reset" class="btn btn-default" value="Reset">
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+
 <script>
 $(document).ready(function() {  
     $('#myform').bootstrapValidator({
@@ -105,23 +187,23 @@ $(document).ready(function() {
                     }
                 }
             },
-            office: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please enter office'
-                    }
-                }
-            },
+            // office: {
+            //     validators: {
+            //         notEmpty: {
+            //             message: 'Please enter office'
+            //         }
+            //     }
+            // },
           
             
-            address: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please enter address'
+            // address: {
+            //     validators: {
+            //         notEmpty: {
+            //             message: 'Please enter address'
                    
-                    }
-                }
-            },   
+            //         }
+            //     }
+            // },   
             sub: {
         
                 validators: {
@@ -142,9 +224,63 @@ $(document).ready(function() {
                     }
                 }
             },
+            //  ctn: {
+        
+            //     validators: {
+          
+            //     notEmpty: {
+            //             message: 'Please enter ctn'
+                    
+            //         }
+            //     }
+            // },
+            //  rep: {
+        
+            //     validators: {
+          
+            //     notEmpty: {
+            //             message: 'Please enter representative'
+                    
+            //         }
+            //     }
+            // },
+            //  remarks: {
+        
+            //     validators: {
+          
+            //     notEmpty: {
+            //             message: 'Please enter remarks'
+                    
+            //         }
+            //     }
+            // },
+            // tr: {
+        
+            //     validators: {
+          
+            //     notEmpty: {
+            //             message: 'Please enter  received time'
+                    
+            //         }
+            //     }
+            // },
+            // dr: {
+        
+            //     validators: {
+          
+            //     notEmpty: {
+            //             message: 'Please enter received date'
+                    
+            //         }
+            //     }
+            // },
        
         }
         
     });  
 });
 </script>
+
+
+
+@endsection
